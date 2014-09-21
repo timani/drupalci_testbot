@@ -137,6 +137,8 @@ if [ ! -f /usr/bin/docker ];
   else
   echo
   # Check Docker Version
+  # Echo the docker version
+  docker version
   DOCKER_VERSION=$(docker version | grep "Server version" | awk '{print $3}')
   if [ -z ${DOCKER_VERSION} ];
     then
