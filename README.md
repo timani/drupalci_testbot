@@ -25,17 +25,6 @@ cd drupalci_testbot
 sudo ./scripts/build_all.sh cleanup
 ```
 
-## Quick Vagrant MAC/Windows instructions:
-This will not run natively since it's a Virtualbox VM
-and you need to install Vagrant.
-
-```
-git clone {thisrepo}
-cd drupalci_testbot
-vagrant up
-
-```
-
 ### Run some group tests:
 ```
 sudo TESTGROUPS="Action,Bootstrap" DRUPALBRANCH="8.0.x" PATCH="/path/to/your.patch,." ./run.sh
@@ -183,51 +172,93 @@ sudo docker ps -a | awk '{print $1}' | xargs -n1 -I {} sudo docker rm {}
 ## Current Structure:
 ```
 .
-├── build_all.sh
-├── D7TestGroupsClasses.txt
-├── D8TestGroupsClasses.txt
+├── composer.json
 ├── containers
-│   ├── web
-│   │   ├── build.sh
-│   │   ├── conf
-│   │   │   ├── apache2
-│   │   │   │   └── vhost.conf
-│   │   │   ├── php5
-│   │   │   │   ├── apache2.ini
-│   │   │   │   ├── apc.ini
-│   │   │   │   └── cli.ini
-│   │   │   ├── scripts
-│   │   │   │   ├── foreground.sh
-│   │   │   │   └── start.sh
-│   │   │   └── supervisor
-│   │   │       └── supervisord.conf
-│   │   ├── Dockerfile -> Dockerfile-PHP5.4
-│   │   ├── Dockerfile-PHP5.3
-│   │   ├── Dockerfile-PHP5.4
-│   │   ├── Dockerfile-PHP5.5
-│   │   └── run.sh
-│   └── database
-│       └── mysql
-│           ├── build.sh
-│           ├── conf
-│           │   └── startup.sh
-│           ├── Dockerfile
-│           ├── run-client.sh
-│           ├── run-server.sh
-│           └── stop-server.sh
-├── patch.p1
-├── provision.sh
+│   ├── base
+│   │   └── testbot_base
+│   ├── database
+│   │   ├── mariadb -> mariadb_10
+│   │   ├── mariadb_10
+│   │   │   ├── build.sh
+│   │   │   ├── conf
+│   │   │   │   └── startup.sh
+│   │   │   ├── Dockerfile
+│   │   │   ├── run-client.sh
+│   │   │   ├── run-server.sh
+│   │   │   └── stop-server.sh
+│   │   ├── mariadb_5_5
+│   │   │   ├── build.sh
+│   │   │   ├── conf
+│   │   │   │   └── startup.sh
+│   │   │   ├── Dockerfile
+│   │   │   ├── run-client.sh
+│   │   │   ├── run-server.sh
+│   │   │   └── stop-server.sh
+│   │   ├── mysql -> mysql_5_5
+│   │   ├── mysql_5_5
+│   │   │   ├── build.sh
+│   │   │   ├── conf
+│   │   │   │   └── startup.sh
+│   │   │   ├── Dockerfile
+│   │   │   ├── run-client.sh
+│   │   │   ├── run-server.sh
+│   │   │   └── stop-server.sh
+│   │   ├── pgsql -> postgres_9_1
+│   │   ├── postgres_8_3
+│   │   │   ├── build.sh
+│   │   │   ├── conf
+│   │   │   │   ├── locale.gen
+│   │   │   │   └── startup.sh
+│   │   │   ├── Dockerfile
+│   │   │   ├── run-client.sh
+│   │   │   ├── run-server.sh
+│   │   │   └── stop-server.sh
+│   │   └── postgres_9_1
+│   │       ├── build.sh
+│   │       ├── conf
+│   │       │   ├── locale.gen
+│   │       │   └── startup.sh
+│   │       ├── Dockerfile
+│   │       ├── run-client.sh
+│   │       ├── run-server.sh
+│   │       └── stop-server.sh
+│   └── web
+│       ├── build.sh
+│       ├── conf
+│       │   ├── apache2
+│       │   │   └── vhost.conf
+│       │   ├── php5
+│       │   │   ├── apache2.ini
+│       │   │   ├── apc.ini
+│       │   │   └── cli.ini
+│       │   ├── scripts
+│       │   │   ├── foreground.sh
+│       │   │   └── start.sh
+│       │   └── supervisor
+│       │       └── supervisord.conf
+│       ├── Dockerfile -> Dockerfile-PHP5.4
+│       ├── Dockerfile-PHP5.3
+│       ├── Dockerfile-PHP5.4
+│       ├── Dockerfile-PHP5.5
+│       └── run.sh
+├── drupal
+│   ├── D7TestGroupsClasses.txt
+│   └── D8TestGroupsClasses.txt
+├── drupalci
+├── jobs
+│   ├── phpunit
+│   ├── simpletest
+│   └── syntax
 ├── README.md
 ├── run.sh -> ./containers/web/run.sh
-├── supervisord
-│   ├── build.sh
-│   ├── default
-│   ├── Dockerfile
-│   ├── php-cli.ini
-│   ├── php.ini
-│   ├── run.sh
-│   └── supervisord.conf
-└── Vagrantfile
+└── scripts
+    ├── build_all.sh
+    ├── run.sh -> ./containers/web/run.sh\n\n
+    └── src
+        ├── build.inc.php
+        ├── drupalci.php
+        ├── helpers.php
+        └── setup.inc.php
 
 ```
 ###CREDITS:
