@@ -3,6 +3,8 @@ machine:
   php:
     # https://circleci.com/docs/environment#php
     version: 5.4.4
+  services:
+    - docker  
   environment:
     DRUPALBRANCH: "8.0.x"
     DRUPALVERSION: ""
@@ -27,8 +29,6 @@ machine:
     CONCURRENCY: "4"     # How many cpus to use per run
     TESTGROUPS: "--class 'Drupal\block\Tests\NonDefaultBlockAdminTest'" #TESTS TO RUN eg.--all
     RUNSCRIPT: "php ./scripts/run-tests.sh --php /usr/bin/php --url 'http://localhost' --color --concurrency ${CONCURRENCY} --xml '/var/workspace/results' ${TESTGROUPS} "
-  services:
-    - docker
     
 dependencies:
   pre: 
