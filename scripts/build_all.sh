@@ -89,6 +89,9 @@ command -v curl >/dev/null 2>&1 || { echo >&2 "Command 'curl' is required. Pleas
 # Make sure we are at the root
 cd "${BASEDIR}"
 
+# DEBUG - Check PHP version
+php -v 
+
 # Check for PHP
 set +e
 if [ ! -f /usr/bin/php ];
