@@ -77,12 +77,6 @@ if [ ${#dbtypes[@]} -eq 0 ]; then
   dbtypes[mysql_5_5]="mysql_5_5"
 fi
 
-# Check if we have root powers
-if [ `whoami` != root ]; then
-  echo "Please run this script as root or using sudo - build_all.sh"
-  exit 1
-fi
-
 # Check if curl is installed
 command -v curl >/dev/null 2>&1 || { echo >&2 "Command 'curl' is required. Please install it and run again. Aborting."; exit 1; }
 
