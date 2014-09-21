@@ -90,6 +90,10 @@ command -v curl >/dev/null 2>&1 || { echo >&2 "Command 'curl' is required. Pleas
 cd "${BASEDIR}"
 
 # DEBUG - Check PHP version
+# Globally set the PHP version https://circleci.com/docs/configuration#php-version
+# TODO - env variable for the version
+phpenv global 5.4.4
+php --version
 php -v 
 
 # Check for PHP
