@@ -79,7 +79,7 @@ fi
 
 # Check if we have root powers
 if [ `whoami` != root ]; then
-  echo "Please run this script as root or using sudo"
+  echo "Please run this script as root or using sudo - build_all.sh"
   exit 1
 fi
 
