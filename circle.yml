@@ -1,5 +1,8 @@
 # https://circleci.com/docs/configuration#machine
 machine: 
+  php:
+    # https://circleci.com/docs/environment#php
+    version: 5.4.4
   environment:
     PUUID: 'ed64345a-aa95-4e9e-b919-1fe9e8537ce6' 
   services:
