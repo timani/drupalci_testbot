@@ -12,7 +12,7 @@ dependencies:
   pre: 
     # Build db and web containers
     # cleanup any old images after the build is complete
-    - cd containers/base/web_base
+    - cd ./containers/base/web_base
     - sudo ./build.sh
 
   # Install additional test dependencies here (like Casper, Behat, etc).
