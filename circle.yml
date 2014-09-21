@@ -1,0 +1,51 @@
+# https://circleci.com/docs/configuration#machine
+machine: 
+  php:
+    # https://circleci.com/docs/environment#php
+    version: 5.4.4
+  services:
+    - docker  
+  environment:
+    DRUPALBRANCH: "8.0.x"
+    DRUPALVERSION: ""
+    IDENTIFIER: "build_$(date +%Y_%m_%d_%H%M%S)" # Only [a-z0-9-_.] allowed
+    REPODIR: "$HOME/testbotdata"
+    UPDATEREPO: "false"  # true to force repos update
+    BUILDSDIR: "$REPODIR"
+    WORKSPACE: "$BUILDSDIR/$IDENTIFIER/"
+    DEPENDENCIES: ""     # module1,module2,module2...
+    DEPENDENCIES_GIT: "" # gitrepo1,branch;gitrepo2,branch;...
+    DEPENDENCIES_TGZ: "" # module1_url.tgz,module1_url.tgz,...
+    PATCH: ""            # patch_url,apply_dir;patch_url,apply_dir;...
+    DBUSER: "drupaltestbot"
+    DBPASS: "drupaltestbotpw"
+    DBTYPE: "mysql"
+    DBVER: "5.5"         # Used to override the default database version for this database type (Optional)
+    DBLINK: "--link=drupaltestbot-db:db"
+    INSTALLER: "none"    # Try to use core non install tests.
+    CMD: ""              # Eg. enter container shell with CMD="/bin/bash"
+    VERBOSE: "false"     # true will give verbose
+    PHPVERSION: "5.4"
+    CONCURRENCY: "4"     # How many cpus to use per run
+    # Skip TESTGROUPS for initial setup
+    # TESTGROUPS: "--class 'Drupal\block\Tests\NonDefaultBlockAdminTest'" #TESTS TO RUN eg.--all
+    RUNSCRIPT: "php ./scripts/run-tests.sh --php /usr/bin/php --url 'http://localhost' --color --concurrency ${CONCURRENCY} --xml '/var/workspace/results' ${TESTGROUPS} "
+    
+dependencies:
+  pre: 
+    # Build db and web containers
+    # cleanup any old images after the build is complete 
+    - bash ./scripts/build_all.sh --help
+
+  # Install additional test dependencies here (like Casper, Behat, etc).
+  override:  
+    # Authenticate with Pantheon via Terminus. 
+ 
+test:
+  override:
+    #
+    # This is where you run your tests, be they SimpleTest, Casper, Behat,
+    # or otherwise. Here's a SimpleTest example. I've found that drush 
+ 
+  post:
+  # Destroy the Pantheon environment 
