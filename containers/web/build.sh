@@ -3,12 +3,6 @@
 # Remove intermediate containers after a successful build. Default is True.
 DCI_REMOVEINTCONTAINERS=${DCI_REMOVEINTCONTAINERS:-"true"}
 
-# Check if we have root powers
-if [ `whoami` != root ]; then
-    echo "Please run this script as root or using sudo"
-    exit 1
-fi
-
 PHP=$1
 if [[ $PHP = "" ]]; then {
 echo "This will create a docker container for the testbot-web"
