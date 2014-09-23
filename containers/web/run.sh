@@ -399,7 +399,7 @@ TESTGROUPS=\"${TESTGROUPS}\"
 #Let the tests start
 echo "------------------------- STARTING DOCKER CONTAINER ----------------------------"
 RUNCMD="/usr/bin/time -p docker run ${DBLINK} --name=${IDENTIFIER} -v=${WORKSPACE}:/var/workspace:rw -v=${BUILDSDIR}/${IDENTIFIER}/:/var/www:rw -p 80 -t drupal/testbot-web${PHPVERSION} ${CMD}"
-/usr/bin/time -p docker run ${DBLINK} --name=${IDENTIFIER} -v=${WORKSPACE}:/var/workspace:rw -v=${BUILDSDIR}/${IDENTIFIER}/:/var/www:rw -p 80 -t drupal/testbot-web${PHPVERSION} ${CMD}
+ time -p docker run ${DBLINK} --name=${IDENTIFIER} -v=${WORKSPACE}:/var/workspace:rw -v=${BUILDSDIR}/${IDENTIFIER}/:/var/www:rw -p 80 -t drupal/testbot-web${PHPVERSION} ${CMD}
 
 echo "exited $?"
 
