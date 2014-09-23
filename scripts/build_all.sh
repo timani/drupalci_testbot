@@ -135,15 +135,6 @@ if [ ! -f /usr/bin/docker ];
   echo
   exit 1
   else
-  echo
-  # Check Docker Version
-  # Echo the docker version
-  echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
-  docker version
-  echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
-  docker ps
-  echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
-  
   DOCKER_VERSION=$(docker version | grep "Server version" | awk '{print $3}')
   if [ -z ${DOCKER_VERSION} ];
     then

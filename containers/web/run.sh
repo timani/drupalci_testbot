@@ -169,7 +169,7 @@ fi
 if [[ $DBTYPE != "sqlite" ]]
   then
     set +e
-    RUNNING=$(sudo docker ps | grep ${DBCONTAINER} | grep -s ${DBPORT})
+    RUNNING=$(docker ps | grep ${DBCONTAINER} | grep -s ${DBPORT})
     set -e
     if [[ $RUNNING = "" ]]
       then
@@ -396,6 +396,8 @@ RUNSCRIPT=\"${RUNSCRIPT}\"
 TESTGROUPS=\"${TESTGROUPS}\"
 " | tee ${BUILDSDIR}/${IDENTIFIER}/test.info
 
+docker ps
+docker images
 #Let the tests start
 echo "------------------------- STARTING DOCKER CONTAINER ----------------------------"
 RUNCMD="/usr/bin/time -p docker run ${DBLINK} --name=${IDENTIFIER} -v=${WORKSPACE}:/var/workspace:rw -v=${BUILDSDIR}/${IDENTIFIER}/:/var/www:rw -p 80 -t drupal/testbot-web${PHPVERSION} ${CMD}"
