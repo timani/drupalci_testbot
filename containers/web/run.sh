@@ -140,6 +140,13 @@ case $DBTYPE in
 esac
 DBLINK=${DBLINK:-"--link=${DBCONTAINER}:db"}
 
+echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
+echo "DBCONTAINER"
+echo $DBCONTAINER
+echo "DBCONTAINER"
+echo $DBLINK
+echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
+
 case $VERBOSE in
   true) VERBO="--verbose"
     ;;
